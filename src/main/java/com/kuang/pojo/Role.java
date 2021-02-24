@@ -25,13 +25,9 @@ public class Role {
 
     public void setRoleName(String roleName) { this.roleName = roleName; }
 
-    public long getCreatedBy() {
-        return createdBy;
-    }
+    public long getCreatedBy() { return createdBy; }
 
-    public void setCreatedBy(long createdBy) {
-        this.createdBy = createdBy;
-    }
+    public void setCreatedBy(long createdBy) { this.createdBy = createdBy; }
 
     public Date getCreationDate() {
         return creationDate;
