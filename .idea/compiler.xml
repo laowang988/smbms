@@ -10,5 +10,8 @@
         <module name="smbms" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kuang-smbms" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

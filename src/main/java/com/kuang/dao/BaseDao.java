@@ -2,6 +2,8 @@ package com.kuang.dao;
 
 
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -38,18 +40,17 @@ public class BaseDao {
         }
         return con;
     }
-    //编写公共查询类
-    public static ResultSet execute(Connection connection, String sql, Object[] params, ResultSet resultSet,PreparedStatement preparedStatement)throws SQLException {
-         preparedStatement = connection.prepareStatement(sql);
+    //编写公共查询方法
+    public static ResultSet execute(Connection connection, PreparedStatement preparedStatement,Object[] params)throws SQLException {
         for (int i = 0; i < params.length; i++) {
             preparedStatement.setObject(i+1,params[i]);
         }
-        resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet;
     }
 
-    public static int execute(Connection connection, String sql, Object[] params, PreparedStatement preparedStatement)throws SQLException {
-        preparedStatement = connection.prepareStatement(sql);
+    public static int update(Connection connection,  PreparedStatement preparedStatement,Object[] params)throws SQLException {
+
         for (int i = 0; i < params.length; i++) {
             preparedStatement.setObject(i+1,params[i]);
         }
@@ -89,4 +90,5 @@ public class BaseDao {
         }
         return flag;
     }
+
 }

@@ -7,4 +7,5 @@ import java.sql.SQLException;
 
 public interface UserDao {
     public User getLoginUser(Connection connection, String userCode) throws SQLException;
+    public int updatePassword(Connection connection,int id, String password) throws SQLException;
 }
