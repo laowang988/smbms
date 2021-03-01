@@ -3,6 +3,7 @@ package com.kuang.servlet.user;
 import com.kuang.pojo.User;
 import com.alibaba.fastjson.JSONArray;
 import com.kuang.service.user.UserServiceImpl;
+import com.kuang.service.user.role.RoleServiceImpl;
 import com.kuang.util.Contants;
 import com.mysql.jdbc.StringUtils;
 
@@ -74,5 +75,30 @@ public class UserServlet extends HttpServlet {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    public void query(HttpServletRequest req,HttpServletResponse resp) throws ServletException{
+        String queryUserName = req.getParameter("queryname");
+        String temp = req.getParameter("queryUserRole");
+        String pageIndex = req.getParameter("pageIndex");
+        int queryUserRole = 0;
+
+        UserServiceImpl userService = new UserServiceImpl();
+        RoleServiceImpl roleService = new RoleServiceImpl();
+        int pageSize = 5;
+        int currentPageNo = 1;
+
+        if(queryUserName == null){
+            queryUserName = "";
+        }
+        if(!StringUtils.isNullOrEmpty(temp)){
+            queryUserRole = new Integer(temp);
+        }
+        if(pageIndex != null){
+            currentPageNo = Integer.parseInt(pageIndex);
+        }
+
+        int totalCount = userService.getCount(queryUserName,queryUserRole);
+
     }
 }

@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public User login(String userCode, String password) {
-        Connection conn = null;
-        User user = null;
+        Connection conn=null;
+        User user=null;
 
         try {
             conn = BaseDao.getConnection();
@@ -27,18 +27,19 @@ public class UserServiceImpl implements UserService {
         }finally{
             BaseDao.closeResource(conn,null,null);
         }
-        if(user==null || !user.getUserPassword().equals("password")) {
+        if((user==null)|| !user.getUserPassword().equals(password)) {
             return null;
-        }else {
-            return user;
         }
+
+        return user;
+
     }
-    public boolean updatePassword(int id, String password){
+    public boolean updatePassword(int UserId, String newPassword){
         Connection conn = null;
         boolean success = false;
         try{
             conn=BaseDao.getConnection();
-            if (userDao.updatePassword(conn,id,password)>0)
+            if (userDao.updatePassword(conn,UserId,newPassword)>0)
                 success = true;
             }catch (SQLException e){
                 e.printStackTrace();
@@ -48,14 +49,28 @@ public class UserServiceImpl implements UserService {
 
         return success;
     }
-    @Test
-    public void test(){
-        UserServiceImpl userService = new UserServiceImpl();
-        User user = userService.login("admin", "1234567");
-        if (user == null) {
-            System.out.println("用户名或者密码错误");
-        }else{
-            System.out.println(user.getUserPassword());
+
+    public int getUserCount(String userName, int userRole) {
+        Connection conn = null;
+        int userCount = 0;
+        try{
+             conn=BaseDao.getConnection();
+             if (conn!=null){
+                userCount = userDao.getUserCount(conn,userName,userRole);
+             }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            BaseDao.closeResource(conn,null,null);
         }
+        return userCount;
     }
+//    @Test
+//    public void test(){
+//        UserService userService = new UserServiceImpl();
+//        int userCount = userService.getUserCount("系统管理员",0);
+//            System.out.println(userCount);
+//    }
+
+
 }

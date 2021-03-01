@@ -18,7 +18,9 @@ public class LoginServlet extends HttpServlet {
         String userCode = req.getParameter("userCode");
         String password = req.getParameter("userPassword");
 
-        UserServiceImpl userService = new UserServiceImpl();
+        //此外体现了面向接口的思想，声明变量时如下
+        //接口名称 变量名 = new 实现了接口的类名称()
+        UserService userService = new UserServiceImpl();
         User user = userService.login(userCode,password);
         if (user!=null){
             req.getSession().setAttribute(Contants.USER_SSION, user);
